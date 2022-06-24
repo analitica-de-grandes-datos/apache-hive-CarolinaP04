@@ -16,8 +16,8 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
 DROP TABLE IF EXISTS data;
 DROP TABLE IF EXISTS word_count;
 
-CREATE TABLE data (letra STRING, fecha DATE, valor INT);
-ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
+CREATE TABLE data (letra STRING, fecha STRING, valor INT)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
 LOAD DATA LOCAL INPATH "data.tsv" OVERWRITE INTO TABLE data;
 CREATE TABLE word_count AS SELECT letra, COUNT(1) AS count FROM data GROUP BY letra ORDER BY letra;
 
