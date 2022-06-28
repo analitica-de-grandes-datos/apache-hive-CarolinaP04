@@ -13,5 +13,13 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
-
+DROP TABLE IF EXISTS data;
+DROP TABLE IF EXISTS word_count;
+CREATE TABLE data (letra STRING, fecha STRING, valor INT)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
+LOAD DATA LOCAL INPATH "data.tsv" OVERWRITE INTO TABLE data;
+CREATE TABLE word_count AS SELECT DISTINCT valor FROM data;
+INSERT OVERWRITE LOCAL DIRECTORY './output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT * FROM word_count ORDER BY valor LIMIT 5;
 
